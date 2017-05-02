@@ -1,13 +1,70 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Effective JavaScript: Frogger</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="css/styles.css">
+	<title>Arcade Game</title>
 </head>
+
 <body>
+    <header>
+      <h1>MIGUELO & KARINA'S WEEDING</h1>
+      <img src="images/husbands.png" alt="husbands">
+      <p>Helps Miguelo to get married with the love of his life "Karina". You just have to collect the random items, reach the water and score money for their wedding.</p>
+    </header>
+    <main>
+      <div class="container">
+        <div class="box left">
+              <h3>Controls</h3>
+              <div>
+                <p>Up</p>
+                <img src="images/up.png">
+              </div>
+              <div>
+                <p>Down</p>
+                <img src="images/bot.png">
+              </div>
+              <div>
+                <p>Left</p>
+                <img src="images/left.png">
+              </div>
+              <div>
+                <p>Right</p>
+                <img src="images/right.png">
+              </div>
+        </div>
+        <section class="box center" id="game"></section>
+        <div class="box right">
+          <h3>Scoring</h3>
+          <p>No item = $1</p>
+          <p>Roses = $20 </p>
+          <p>Cake = $50 </p>
+          <p>Ring = $100 </p>
+          <p>*Colliding with an enemy also decreases your score</p>
+        </div>
+      </div>
+    <footer>
+        <div class="row">
+            <div>
+                <hr>
+            </div>
+        </div>
+
+        <!-- TODO: add more links to other sites -->
+        <div class="row">
+            <div class="col-md-12">
+                <a class="zocial-github" href="https://github.com/ncaron" target="_blank"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
 </body>
+
 </html>
