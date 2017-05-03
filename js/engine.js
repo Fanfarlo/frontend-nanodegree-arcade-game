@@ -27,7 +27,7 @@ var Engine = (function(global) {
         lastTime;
 
     canvas.width = 505;
-    canvas.height = 700;
+    canvas.height = 720;
     game.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -177,7 +177,10 @@ var Engine = (function(global) {
         'images/char-boy.png',
 		'images/bouquet.png',
 		'images/engagement-ring.png',
-		'images/wedding-cake.png'
+		'images/wedding-cake.png',
+    'images/karina.png',
+    'images/wedding-dress.png',
+    'images/suit.png'
     ]);
     Resources.onReady(init);
 

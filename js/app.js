@@ -3,7 +3,7 @@ var up = false;
 var collide = false;
 var hasItem = false;
 
-// Sets the edges of the gems and enemy bugs.
+// Sets the edges of the items and enemy bugs.
 function Edges() {
     this.halfBoxHeight = 37;
     this.halfBoxWidth = 50;
@@ -134,7 +134,7 @@ Player.prototype.handleInput = function(keyDown) {
 // Updates the score.
 Player.prototype.updateScore = function() {
     ctx.clearRect(0, 0, 500, 500);
-    // If the player reaches the water with a gem, update score accordingly.
+    // If the player reaches the water with a item, update score accordingly.
     if (up === true && hasItem === true) {
         this.score += item.value;
         up = false;
@@ -143,15 +143,15 @@ Player.prototype.updateScore = function() {
         ctx.clearRect(0, 600, 500, 500);
         item.setItemLocation();
     }
-    // If the player reaches the water without a gem, increase score by 1.
+    // If the player reaches the water without a item, increase score by 1.
     else if (up === true) {
         this.score++;
         up = false;
         this.playerReset();
     }
 
-    // If player has collision with enemy, reduce score by value of the gem carried.
-    // If not carryin a gem, reduce score by gem value / 2.
+    // If player has collision with enemy, reduce score by value of the item carried.
+    // If not carryin a item, reduce score by item value / 2.
     if (collide === true) {
         if (hasItem === true) {
             ctx.clearRect(0, 600, 500, 500);
@@ -172,18 +172,18 @@ Player.prototype.playerReset = function() {
     this.y = this.startingY;
 };
 
-// Creates a gem and places it on a random stone block with setItemLocation().
+// Creates a item and places it on a random stone block with setItemLocation().
 var Item = function() {
     this.setItemLocation();
 };
 
-// Sets the location of the gem when called in setItemLocation.
+// Sets the location of the item when called in setItemLocation.
 function itemLocation() {
     this.x = (Math.floor(Math.random() * 5)) * 100 + 25;
     this.y = (Math.floor(Math.random() * 3) + 1) * 85 + 60;
 }
 
-// Sets the location of a gem.
+// Sets the location of a item.
 // Blue will appear most often, then green, then orange.
 Item.prototype.setItemLocation = function() {
     var random = Math.floor(Math.random() * 100) + 1;
@@ -191,29 +191,39 @@ Item.prototype.setItemLocation = function() {
     if (random >= 60) {
         this.sprite = 'images/bouquet.png';
         itemLocation.call(this);
-        this.value = 20;
-    } else if (random < 60 && random > 10) {
+        this.value = 50;
+    } else if (random < 60 && random > 40) {
         this.sprite = 'images/wedding-cake.png';
         itemLocation.call(this);
-        this.value = 50;
-    } else {
+        this.value = 100;
+    } else if (random < 40 && random > 30) {
+        this.sprite = 'images/suit.png';
+        itemLocation.call(this);
+        this.value = 800;
+    } else if (random < 30 && random > 20) {
+      this.sprite = 'images/wedding-dress.png';
+      itemLocation.call(this);
+      this.value = 1000;
+    }
+    else  {
         this.sprite = 'images/engagement-ring.png';
         itemLocation.call(this);
-        this.value = 100;
-    }
+        this.value = 1500;
+      }
 };
 
-// Detects if the player has caught a gem.
+// Detects if the player has caught a item.
 Item.prototype.update = function() {
     Edges.call(this);
     if (player.y > this.boxUp && player.y < this.boxDown && player.x > this.boxLeft && player.x < this.boxRight) {
         hasItem = true;
+        this.sprite = 'images/karina.png';
         this.x = 0;
         this.y = 600;
     }
 };
 
-// Draw the gem on the screen.
+// Draw the item on the screen.
 Item.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
@@ -230,7 +240,7 @@ for (var i = 0; i < 3; i++) {
 // Creates the player character.
 var player = new Player();
 
-// Creates the gem.
+// Creates the item.
 var item = new Item();
 
 // This listens for key presses and sends the keys to the Player.handleInput() method.
