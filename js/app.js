@@ -1,3 +1,12 @@
+//Creating a super class for the render methods
+var Character = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+/* setting inheritance */
+var Enemy = Object.create(Character);
+Enemy.prototype.constructor = Enemy;
+
 // Boolean values for updating the score.
 var up = false;
 var collide = false;
@@ -15,7 +24,7 @@ function Edges() {
 
 // This will be multiplied with a random number between 1 and 10 to set the speed of the enemy.
 // Change this number to increase or lower difficulty.
-var speedMultiply = 80;
+var SPEED_MULTIPLY = 80;
 
 // Enemies our player must avoid
 var Enemy = function(enemyX, enemyY, speed) {
@@ -51,13 +60,14 @@ Enemy.prototype.update = function(dt) {
 };
 
 // Draw the enemy on the screen, required method for game
+
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    Character.call(this);
 };
 
 // Sets a random speed to the enemy.
 Enemy.prototype.speedGenerator = function() {
-    this.speed = speedMultiply * (Math.floor(Math.random() * 10) + 1);
+    this.speed = SPEED_MULTIPLY * (Math.floor(Math.random() * 10) + 1);
 };
 
 // The player character
@@ -85,7 +95,7 @@ var Player = function() {
 
 // Draw the player on the screen.
 Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    Character.call(this);
 
     ctx.font = '30pt Arial';
     ctx.fillStyle = 'green';
@@ -100,7 +110,7 @@ Player.prototype.handleInput = function(keyDown) {
         case 'up':
             if (this.y === this.gameTopEdge) {
                 up = true;
-                player.updateScore();
+                this.updateScore();
             } else {
                 this.y -= this.moveVertical;
             }
@@ -225,7 +235,7 @@ Item.prototype.update = function() {
 
 // Draw the item on the screen.
 Item.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    Character.call(this);
 };
 
 var allEnemies = [];
@@ -233,7 +243,7 @@ var allEnemies = [];
 // Sets maximum number of enemies on screen to 3 (number of rows of rock).
 // Be sure to change this if another row of rocks and enemies is to be added.
 for (var i = 0; i < 3; i++) {
-    var initialSpeed = speedMultiply * (Math.floor(Math.random() * 10) + 1);
+    var initialSpeed = SPEED_MULTIPLY * (Math.floor(Math.random() * 10) + 1);
     allEnemies.push(new Enemy(-105, 135 + 85 * i, initialSpeed));
 }
 
